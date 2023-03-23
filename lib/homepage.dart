@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:pop_ten/custom_square.dart';
 import 'package:pop_ten/custom_square_list.dart';
@@ -12,7 +14,23 @@ class _HomePageState extends State<HomePage> {
   static int numberInRow = 11;
   int numberOfSquares = numberInRow * 11;
 
+  String static = changePositions;
+
+  static String get changePositions => changePositions;
   @override
+  void initState(){
+    super.initState();
+    Timer(Duration(seconds: 10),(){
+      setState(() {
+      changePositions = customSquares;
+      });
+    });
+  }
+
+
+
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.purple,

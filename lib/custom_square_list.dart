@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:pop_ten/custom_square.dart';
@@ -6,6 +7,10 @@ List<int> customSquares = List.generate(101, (index) => index, growable:  false)
 
 var i=0;
 
+
+// void shuffleTimer(){
+// customSquares = Timer.periodic(duration, (timer) { })
+//    }
 
 
 // create function to populate customSquares
