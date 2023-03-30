@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:pop_ten/custom_square.dart';
 
-List<int> customSquares = List.generate(101, (index) => index, growable:  false)..shuffle();
+List<int> customSquares = List.generate(100, (index) => index, growable:  false)..shuffle();
 
 var i=0;
 

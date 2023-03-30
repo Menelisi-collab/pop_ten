@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:pop_ten/custom_square.dart';
@@ -14,79 +15,73 @@ class _HomePageState extends State<HomePage> {
   static int numberInRow = 11;
   int numberOfSquares = numberInRow * 11;
 
-  String static = changePositions;
-
-  static String get changePositions => changePositions;
+  get timer => null;
   @override
-  void initState(){
+  initState(){
     super.initState();
-    Timer(Duration(seconds: 10),(){
-      setState(() {
-      changePositions = customSquares;
-      });
+    Timer.periodic(Duration(seconds: 10), (timer) {
+      customSquares.shuffle();
     });
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
 
 
-
-
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.purple,
-      body: Column(
-        children: [
-          Expanded(
-            flex: 5,
-            child: Container(
-              child: GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: customSquares.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: numberInRow),
-                  itemBuilder: (BuildContext context, int index) {
+    return Container(
+      child: SingleChildScrollView(
+        child: Scaffold(
+          backgroundColor: Colors.purple,
+          body: Column(
+            children: [
+              Expanded(
+                flex: 5,
+                child: Container(
+                  child: Expanded(
+                    child: GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: customSquares.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: numberInRow),
+                        itemBuilder: (BuildContext context, int index) {
 
-                    final currentNumber = customSquares[index];
+                          final currentNumber = customSquares[index];
 
-                    return Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: Container(
-                        color: Colors.white,
-                        child: Center(
-                          child: CustomSquare(value: currentNumber),
-                        ),
-                      ),
-                    );
-                  }),
-            ),
-          ),
-
-          Expanded(
-            child: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AnimatedContainer(duration: const Duration(seconds: 20),
-                  child: Lottie.network('https://assets1.lottiefiles.com/temp/lf20_At0drg.json',),
+                          return Padding(
+                            padding: const EdgeInsets.all(1.0),
+                            child: Container(
+                              color: Colors.white,
+                              child: Center(
+                                child: CustomSquare(value: currentNumber),
+                              ),
+                            ),
+                          );
+                        }),
                   ),
-                  AnimatedContainer(duration: const Duration(seconds: 20),
-                    child: Lottie.network('https://assets1.lottiefiles.com/private_files/lf30_t0igqye8.json',),
-                  ),
-                  AnimatedContainer(duration: const Duration(seconds: 20),
-                    child: Lottie.network('https://assets6.lottiefiles.com/private_files/lf30_es53gnxq.json',),
-                  ),
-                  AnimatedContainer(duration: const Duration(seconds: 20),
-              child: Lottie.network('https://assets10.lottiefiles.com/packages/lf20_oCJ11v.json',),)
-                ],
+                ),
               ),
-            ),
+              SizedBox(height: 10),
+
+              Expanded(
+                child: ClipRect(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AnimatedContainer(duration: const Duration(seconds: 20),
+                        child: Lottie.network('https://assets7.lottiefiles.com/packages/lf20_9zjzjv8t.json'),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
           ),
-          Expanded(
-            child: SizedBox(
-              child: Text('Score: ', style: TextStyle(color: Colors.white, fontSize: 30, height: 2),),
-            ),
-          )
-        ],
+        ),
       ),
     );
   }
